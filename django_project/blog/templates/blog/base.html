@@ -13,7 +13,7 @@
     <link rel="stylesheet", type="text/css", href="{% static 'blog/main.css' %}">
 
     {% if title %}
-        <title>Django blog - {{ title }}</title>
+        <title>Django Blog - {{ title }}</title>
     {% else %}
         <title>Django Blog</title>
     {% endif %}
@@ -33,15 +33,20 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="#">Login</a>
-              <a class="nav-item nav-link" href="#">Register</a>
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
             </div>
           </div>
         </div>
       </nav>
     </header>
     <main role="main" class="container">
-        <div class="row">
+      <div class="row">
         <div class="col-md-8">
           {% if messages %}
             {% for message in messages %}
